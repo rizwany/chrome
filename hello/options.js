@@ -1,21 +1,19 @@
 $(function(){
-	chrome.storage.sync.get('total', function(items) {
-	$('#total').text(items.total);
+	chrome.storage.sync.get('goal', function(items) {
+	$('#goal').val(items.goal);
 	});
 	
-	$("#addAmount").click(function() {
-		chrome.storage.sync.get('total',function(items) {
-			var newTotal = 0;
-			if(items.total){
-				newTotal += parseInt(items.total);
+	$("#save").click(function() {
+		var goal = $('#goal').val();
+		if(goal){
+				chrome.storage.sync.set({'goal':goal)}, function (){
+				close();
+				}
 			}
-			var amount = $('#amount').val();
-			if(amount) {
-				newTotal += parseInt(amount);
-			}
-			chrome.storage.sync.set({'total': newTotal})
-			$('#total').text(newTotal);
-			$('#amount').tevalxt('');
 		});
+		
+		
+	$("#reset").click(function() {
+		chrome.storage.sync.set({'total':0});
 		});
-	});
+});
